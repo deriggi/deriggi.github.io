@@ -1,1 +1,333 @@
-<html>new file time</html>
+<!DOCTYPE html>
+<head>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Carrois+Gothic" rel="stylesheet">
+    <style>
+        .lefont{ font-family: 'Carrois Gothic', sans-serif;;}
+        body{
+            font-family:Arial, Helvetica, sans-serif
+        }
+    </style>
+</head>
+<body>
+    <div class= "lefont" style="min-height:30px;position:relative; margin-left: auto;margin-right: auto; " id="banner-container" >
+        <div id = "lead-title" style="text-align:center; opacity:0; color:#545454; top:50%; position:absolute;
+            left: 50%;
+            width:51%;
+            margin-right: -50%;
+            transform: translate(-50%, -50%)">
+            <h2 style="font-size:1.8em">Technical and Vocational Training Study in Vietnam </h2>
+            <p style="font-size:1.8em">Representative Data Visualizatsions</p>
+            
+        </div>
+    </div>
+
+    <h2 id="sunburst-heading" class="lefont" style="opacity:0; line-height: 1em;  margin-left:auto; margin-right:auto;width:51% "> TVET Analysis in Vietnam </h2>
+    <p class = "lefont" id="description" style="opacity:0; line-height: 2em; text-align:left;  margin-left:auto; margin-right:auto; width:51%; margin-bottom:10px">
+        
+        DAI Global's Sustainable Busines Group is conducting a study of technical and vocational training institutions in Vietnam. Understanding the workforce dynamics in Vietnam will make it easier to 
+        bring local labor into the economy.
+    </p>
+
+    <p class = "lefont"  id="description2" style="opacity:0; line-height: 2em; text-align:left;  margin-left:auto; margin-right:auto; width:51%; margin-bottom:10px">
+        Technical and vocational occupations in Vietnam are organized into categories, a simple two-level hierarchy with 49 categories of occupations. Using a sunburst visualization, we can show all 49 categories and the occupations under each.</p> 
+    
+    <p class = "lefont"  id="description3" style="opacity:0; line-height: 2em; text-align:left;  margin-left:auto; margin-right:auto; width:51%; margin-bottom:10px">
+        Sunbursts are a great way to represent large hierarchical datasets. The inner ring represents the highest level in the category and the outermost ring represents the items under each category. If we were modeling file structures then the center of the sunburst would be your C drive and the next away from the center would be folders within the C drive, leading to the the outer ring, the individual files within those folders. 
+    </p>
+
+
+    <p class = "lefont"  id="description4" style="opacity:0; line-height: 2em; text-align:left;  margin-left:auto; margin-right:auto; width:51%; margin-bottom:10px">
+        In our sunburst below, the categories are the inner ring, and the slices in the outer ring are the individual occupations. Each category has a code which is prepended onto the name. These visualizations can be a unwieldy if you are trying to find a specific data item so we've added a search filter on all names in the dataset. 
+
+        <!-- DAI is conducting a study of technical and vocational training instutions in Vietnam.DAI is conducting a study of technical and vocational training instutions in Vietnam.DAI is conducting a study of technical and vocational training instutions in Vietnam.DAI is conducting a study of technical and vocational training instutions in Vietnam.DAI is conducting a study of technical and vocational training instutions in Vietnam.DAI is conducting a study of technical and vocational training instutions in Vietnam.DAI is conducting a study of technical and vocational training instutions in Vietnam.DAI is conducting a study of technical and vocational training instutions in Vietnam.DAI is conducting a study of technical and vocational training instutions in Vietnam.DAI is conducting a study of technical and vocational training instutions in Vietnam.DAI is conducting a study of technical and vocational training instutions in Vietnam.DAI is conducting a study of technical and vocational training instutions in Vietnam.  -->
+    
+    </p>
+    
+    <h2 id="sunburst-heading" class="lefont" style="opacity:0; line-height: 2em;  margin-left:auto; margin-right:auto;width:51% ">Sunbursts</h2>
+    
+    <!-- <p class = "lefont" id="description2" style=" line-height: 2em; text-align:left;  margin-left:auto; margin-right:auto; width:51%">DAI is conducting a study of technical and vocational training instutions in Vietnam.DAI is conducting a study of technical and vocational training instutions in Vietnam.DAI is conducting a study of technical and vocational training instutions in Vietnam.DAI is conducting a study of technical and vocational training instutions in Vietnam.DAI is conducting a study of technical and vocational training instutions in Vietnam.DAI is conducting a study of technical and vocational training instutions in Vietnam.DAI is conducting a study of technical and vocational training instutions in Vietnam.DAI is conducting a study of technical and vocational training instutions in Vietnam.DAI is conducting a study of technical and vocational training instutions in Vietnam.DAI is conducting a study of technical and vocational training instutions in Vietnam.DAI is conducting a study of technical and vocational training instutions in Vietnam.DAI is conducting a study of technical and vocational training instutions in Vietnam.DAI is conducting a study of technical and vocational training instutions in Vietnam. </p> -->
+
+    <!-- <h3 id="title" class="lefont" style="text-align:center;  font-size:1.8em;" > Vietnam </h3> -->
+    <h2 id="title" class="lefont" style="opacity:0; line-height: 2em;  margin-left:auto; margin-right:auto;width:51%; height:75px "> Categories of Occupations in Vietnam </h2>
+    
+    <div style=" line-height: 2em;  margin-left:auto; margin-right:auto;width:51%; height:50px ">
+        <label for="nValue" class = "lefont" style="display: inline-block; margin-right:auto; ">SEARCH THAT SUNBURST <span id="nValue-value"></span>
+        </label>
+        <input type="text"  id="nValue" style="padding:10px; margin-bottom:45px">
+    </div>
+
+    <div id="main" style="padding-left:130px; float:left; ">
+        <p>
+            
+        </p>
+        
+        <svg>
+
+            
+
+        </svg>
+    </div>
+
+    <div id="sidebar" style="padding-left:100px; float:left" >
+        <div id="legend" style="font-family:Arial"></div>
+      </div>
+</body>
+
+<script>
+    var theHeight = document.documentElement.clientHeight 
+    document.getElementById("banner-container").style["height"] = theHeight*0.3+"px";
+    var totalScroll = 0;
+    function pageScroll() {
+        let scrollAmount = 10;
+        window.scrollBy(0, scrollAmount );
+        totalScroll += scrollAmount;
+        if (totalScroll > theHeight / 2){
+           alert("done") 
+        }
+        let scrolldelay = setTimeout(pageScroll,2);
+    }
+
+    function fadeInAndCallback(thing, callback){
+        var opacity = 0;
+        var timer = setInterval(function(){
+            if(opacity > 1){
+                clearInterval(timer);
+                callback(); //this executes the callback function!
+            }
+            thing.style.opacity = opacity;
+            opacity +=  0.01;
+        }, 50);
+    }
+    
+    fadeInAndCallback(document.getElementById("lead-title"), function(){
+    })
+
+    fadeInAndCallback(document.getElementById("description"), function(){
+    })
+
+    fadeInAndCallback(document.getElementById("description2"), function(){
+    })
+
+    fadeInAndCallback(document.getElementById("description3"), function(){
+    })
+
+    fadeInAndCallback(document.getElementById("description4"), function(){
+    })
+
+    fadeInAndCallback(document.getElementById("main"), function(){
+        console.log("done");
+    })
+
+    fadeInAndCallback(document.getElementById("sidebar"), function(){
+        console.log("done");
+    })
+
+    fadeInAndCallback(document.getElementById("title"), function(){
+        console.log("done");
+    })
+
+    fadeInAndCallback(document.getElementById("sunburst-heading"), function(){
+        console.log("done");
+    })
+
+    // pageScroll();
+    // JSON data
+    var nodeData = {"name":"root","children":[{"name":"405109 - Geotechnical geophysical and geodetic technology","children":[{"name":"Cartography (maps)","size":1.0,"classification":"405109 - Geotechnical geophysical and geodetic technology"},{"name":"Geodetic Works","size":1.0,"classification":"405109 - Geotechnical geophysical and geodetic technology"},{"name":"Topographic Survey","size":1.0,"classification":"405109 - Geotechnical geophysical and geodetic technology"},{"name":"Geological survey","size":1.0,"classification":"405109 - Geotechnical geophysical and geodetic technology"},{"name":"Hydrological survey","size":1.0,"classification":"405109 - Geotechnical geophysical and geodetic technology"},{"name":"Drilling Geological Exploration","size":1.0,"classification":"405109 - Geotechnical geophysical and geodetic technology"},{"name":"Cadastral instruments","size":1.0,"classification":"405109 - Geotechnical geophysical and geodetic technology"},{"name":"Meteorological monitoring","size":1.0,"classification":"405109 - Geotechnical geophysical and geodetic technology"}],"classification":"405109 - Geotechnical geophysical and geodetic technology"},{"name":"405110 - Mining technology","children":[{"name":"Mining technology","size":1.0,"classification":"405110 - Mining technology"},{"name":"Surface mining techniques","size":1.0,"classification":"405110 - Mining technology"},{"name":"Operation of coal sorting screening equipment","size":1.0,"classification":"405110 - Mining technology"},{"name":"Operation screening equipment for metal ore sorting","size":1.0,"classification":"405110 - Mining technology"},{"name":"Explosive Drilling","size":1.0,"classification":"405110 - Mining technology"},{"name":"Tunnel excavation (tunnel drilling)","size":1.0,"classification":"405110 - Mining technology"},{"name":"Mining","size":1.0,"classification":"405110 - Mining technology"},{"name":"Operate coal gasification station","size":1.0,"classification":"405110 - Mining technology"}],"classification":"405110 - Mining technology"},{"name":"405402 - Manufacturing and processing yarns fabrics shoes and leather","children":[{"name":"Tanning","size":1.0,"classification":"405402 - Manufacturing and processing yarns fabrics shoes and leather"},{"name":"Production of leather and footwear","size":1.0,"classification":"405402 - Manufacturing and processing yarns fabrics shoes and leather"},{"name":"Fiber Technology","size":1.0,"classification":"405402 - Manufacturing and processing yarns fabrics shoes and leather"},{"name":"Textile technology","size":1.0,"classification":"405402 - Manufacturing and processing yarns fabrics shoes and leather"},{"name":"Fashion Apparel","size":1.0,"classification":"405402 - Manufacturing and processing yarns fabrics shoes and leather"},{"name":"Fashion Designer","size":1.0,"classification":"405402 - Manufacturing and processing yarns fabrics shoes and leather"},{"name":"Laundry Technology","size":1.0,"classification":"405402 - Manufacturing and processing yarns fabrics shoes and leather"},{"name":"Veston Sewing Technology","size":1.0,"classification":"405402 - Manufacturing and processing yarns fabrics shoes and leather"}],"classification":"405402 - Manufacturing and processing yarns fabrics shoes and leather"},{"name":"405107 - Oil and gas technology and mining","children":[{"name":"Operation of Petrochemical equipment","size":1.0,"classification":"405107 - Oil and gas technology and mining"},{"name":"Operation of distribution stations for petroleum products","size":1.0,"classification":"405107 - Oil and gas technology and mining"},{"name":"Operation of gas and liquefied gas stations","size":1.0,"classification":"405107 - Oil and gas technology and mining"},{"name":"Operation of Oil and Gas Processing Equipment","size":1.0,"classification":"405107 - Oil and gas technology and mining"},{"name":"Operating Oil and Gas Production equipment","size":1.0,"classification":"405107 - Oil and gas technology and mining"},{"name":"Drilling/exploitation of oil and gas","size":1.0,"classification":"405107 - Oil and gas technology and mining"},{"name":"Production of oil refining products","size":1.0,"classification":"405107 - Oil and gas technology and mining"},{"name":"Analysis of oil refining products","size":1.0,"classification":"405107 - Oil and gas technology and mining"},{"name":"Testing of Petrochemical Products","size":1.0,"classification":"405107 - Oil and gas technology and mining"},{"name":"Operation of oil refining equipment","size":1.0,"classification":"405107 - Oil and gas technology and mining"},{"name":"Operate equipment to produce nitrogenous fertilizer from petroleum gas","size":1.0,"classification":"405107 - Oil and gas technology and mining"},{"name":"Operations of stations and petroleum pipelines","size":1.0,"classification":"405107 - Oil and gas technology and mining"},{"name":"Petroleum sampling and testing","size":1.0,"classification":"405107 - Oil and gas technology and mining"},{"name":"Repairing equipment for oil and gas exploration","size":1.0,"classification":"405107 - Oil and gas technology and mining"},{"name":"Drilling for Oil and Gas Exploration","size":1.0,"classification":"405107 - Oil and gas technology and mining"}],"classification":"405107 - Oil and gas technology and mining"},{"name":"403204 - Publishing - Release","children":[{"name":"Publishing Publications","size":1.0,"classification":"403204 - Publishing - Release"}],"classification":"403204 - Publishing - Release"},{"name":"403401 - Business","children":[{"name":"Shipping Business Management","size":1.0,"classification":"403401 - Business"},{"name":"Business Management in Inland Waterway Transport","size":1.0,"classification":"403401 - Business"},{"name":"Transportation Business Management","size":1.0,"classification":"403401 - Business"},{"name":"Business Management of Railway Transport","size":1.0,"classification":"403401 - Business"},{"name":"Business Administration of Airfreight","size":1.0,"classification":"403401 - Business"},{"name":"Managing the Electricity Business","size":1.0,"classification":"403401 - Business"},{"name":"Business Management - Food","size":1.0,"classification":"403401 - Business"},{"name":"Business Management of Agricultural Materials","size":1.0,"classification":"403401 - Business"},{"name":"Business Administration of Industrial Supplies","size":1.0,"classification":"403401 - Business"},{"name":"Business Management of Construction Materials","size":1.0,"classification":"403401 - Business"},{"name":"Business administration equipment office supplies","size":1.0,"classification":"403401 - Business"},{"name":"Business management gasoline and gas","size":1.0,"classification":"403401 - Business"},{"name":"Business administration of real estate","size":1.0,"classification":"403401 - Business"},{"name":"Commercial Aviation Services","size":1.0,"classification":"403401 - Business"},{"name":"Business publications cultural","size":1.0,"classification":"403401 - Business"},{"name":"Tourism Marketing Services","size":1.0,"classification":"403401 - Business"},{"name":"Trade Marketing","size":1.0,"classification":"403401 - Business"},{"name":"Sales in the Supermarket","size":1.0,"classification":"403401 - Business"},{"name":"Farm Sugar Cane","size":1.0,"classification":"403401 - Business"},{"name":"Public Relations","size":1.0,"classification":"403401 - Business"}],"classification":"403401 - Business"},{"name":"403203 - Letter - Archives - Museum","children":[{"name":"Storage (archives)","size":1.0,"classification":"403203 - Letter - Archives - Museum"},{"name":"Secretary","size":1.0,"classification":"403203 - Letter - Archives - Museum"},{"name":"Administrative Letter","size":1.0,"classification":"403203 - Letter - Archives - Museum"},{"name":"Museum","size":1.0,"classification":"403203 - Letter - Archives - Museum"}],"classification":"403203 - Letter - Archives - Museum"},{"name":"404802 - Information Technology","children":[{"name":"Office Information","size":1.0,"classification":"404802 - Information Technology"},{"name":"Applied Telecommunications","size":1.0,"classification":"404802 - Information Technology"},{"name":"Data Processing","size":1.0,"classification":"404802 - Information Technology"},{"name":"Computer programmer","size":1.0,"classification":"404802 - Information Technology"},{"name":"Database administrator","size":1.0,"classification":"404802 - Information Technology"},{"name":"Computer network administration/management","size":1.0,"classification":"404802 - Information Technology"},{"name":"E-Commerce","size":1.0,"classification":"404802 - Information Technology"},{"name":"Graphic Design","size":1.0,"classification":"404802 - Information Technology"},{"name":"Website Design","size":1.0,"classification":"404802 - Information Technology"},{"name":"Draw and Design on the Computer","size":1.0,"classification":"404802 - Information Technology"},{"name":"Information Technology (Software Application)","size":1.0,"classification":"404802 - Information Technology"}],"classification":"404802 - Information Technology"},{"name":"408101 - Travel services","children":[{"name":"Tourguide","size":1.0,"classification":"408101 - Travel services"},{"name":"Travel Administration/Management","size":1.0,"classification":"408101 - Travel services"},{"name":"MICE Tourism Administration","size":1.0,"classification":"408101 - Travel services"},{"name":"Managing entertainment services sports","size":1.0,"classification":"408101 - Travel services"},{"name":"Manage the Tour","size":1.0,"classification":"408101 - Travel services"},{"name":"Booking travel reservations","size":1.0,"classification":"408101 - Travel services"},{"name":"Travel Agent","size":1.0,"classification":"408101 - Travel services"}],"classification":"408101 - Travel services"},{"name":"402202 - Foreign languages and culture","children":[{"name":"English aviation interpreter","size":1.0,"classification":"402202 - Foreign languages and culture"},{"name":"Business English Interpreter","size":1.0,"classification":"402202 - Foreign languages and culture"},{"name":"English Translation Travel (tourism)","size":1.0,"classification":"402202 - Foreign languages and culture"}],"classification":"402202 - Foreign languages and culture"},{"name":"408502 - Occupational safety and hygeine services","children":[{"name":"Labor Protection","size":1.0,"classification":"408502 - Occupational safety and hygeine services"}],"classification":"408502 - Occupational safety and hygeine services"},{"name":"407206 - Dentomaxillofacial","children":[{"name":"Teeth restoration technique","size":1.0,"classification":"407206 - Dentomaxillofacial"}],"classification":"407206 - Dentomaxillofacial"},{"name":"402104 - Fine art application","children":[{"name":"Casting inlaid with fine art bronze","size":1.0,"classification":"402104 - Fine art application"},{"name":"Stone carving","size":1.0,"classification":"402104 - Fine art application"},{"name":"Processing Gems","size":1.0,"classification":"402104 - Fine art application"},{"name":"Jewellery","size":1.0,"classification":"402104 - Fine art application"},{"name":"Lacquer and mosaic technique","size":1.0,"classification":"402104 - Fine art application"},{"name":"Pottery Art","size":1.0,"classification":"402104 - Fine art application"},{"name":"Fine embroidery","size":1.0,"classification":"402104 - Fine art application"},{"name":"Production of Bamboo and Rattan Products","size":1.0,"classification":"402104 - Fine art application"},{"name":"Production of Paintings","size":1.0,"classification":"402104 - Fine art application"},{"name":"Interior decoration","size":1.0,"classification":"402104 - Fine art application"},{"name":"Design of Decorative Products Packaging","size":1.0,"classification":"402104 - Fine art application"},{"name":"Designing and creating samples of construction materials","size":1.0,"classification":"402104 - Fine art application"},{"name":"Machining and Carpentry Design","size":1.0,"classification":"402104 - Fine art application"}],"classification":"402104 - Fine art application"},{"name":"407602 - Social service","children":[{"name":"Family Care Services","size":1.0,"classification":"407602 - Social service"}],"classification":"407602 - Social service"},{"name":"402102 - Performance Art","children":[{"name":"Make a Film","size":1.0,"classification":"402102 - Performance Art"},{"name":"Animated Production","size":1.0,"classification":"402102 - Performance Art"},{"name":"Film (make a film)","size":1.0,"classification":"402102 - Performance Art"},{"name":"Serving Cinema Stage","size":1.0,"classification":"402102 - Performance Art"},{"name":"Instrument Production","size":1.0,"classification":"402102 - Performance Art"}],"classification":"402102 - Performance Art"},{"name":"408104 - Cosmetic services","children":[{"name":"Hair Care Techniques","size":1.0,"classification":"408104 - Cosmetic services"},{"name":"Beauty Care","size":1.0,"classification":"408104 - Cosmetic services"},{"name":"Physical Therapy","size":1.0,"classification":"408104 - Cosmetic services"}],"classification":"408104 - Cosmetic services"},{"name":"408603 - Protect","children":[{"name":"Bodyguard","size":1.0,"classification":"408603 - Protect"},{"name":"Protect (protection)","size":1.0,"classification":"408603 - Protect"}],"classification":"408603 - Protect"},{"name":"405104 - Chemical material metallurgical and environmental engineering","children":[{"name":"Iron","size":1.0,"classification":"405104 - Chemical material metallurgical and environmental engineering"},{"name":"Steel fabrication","size":1.0,"classification":"405104 - Chemical material metallurgical and environmental engineering"},{"name":"Metallurgical Coloring","size":1.0,"classification":"405104 - Chemical material metallurgical and environmental engineering"},{"name":"Ferro Alloy Training","size":1.0,"classification":"405104 - Chemical material metallurgical and environmental engineering"},{"name":"Production technology of alumina","size":1.0,"classification":"405104 - Chemical material metallurgical and environmental engineering"},{"name":"Heat treatment technology","size":1.0,"classification":"405104 - Chemical material metallurgical and environmental engineering"},{"name":"Metal Casting Technology","size":1.0,"classification":"405104 - Chemical material metallurgical and environmental engineering"},{"name":"Rolling Technology Metal Scissors","size":1.0,"classification":"405104 - Chemical material metallurgical and environmental engineering"},{"name":"Dyeing Technology","size":1.0,"classification":"405104 - Chemical material metallurgical and environmental engineering"},{"name":"Plating Technology","size":1.0,"classification":"405104 - Chemical material metallurgical and environmental engineering"},{"name":"Powder coating technology","size":1.0,"classification":"405104 - Chemical material metallurgical and environmental engineering"},{"name":"Electroplating technology","size":1.0,"classification":"405104 - Chemical material metallurgical and environmental engineering"},{"name":"Automotive Paint Technology","size":1.0,"classification":"405104 - Chemical material metallurgical and environmental engineering"},{"name":"Anti-Corrosion Technology","size":1.0,"classification":"405104 - Chemical material metallurgical and environmental engineering"},{"name":"Waste treatment in ship building industry","size":1.0,"classification":"405104 - Chemical material metallurgical and environmental engineering"},{"name":"Waste treatment in steel production","size":1.0,"classification":"405104 - Chemical material metallurgical and environmental engineering"},{"name":"Industrial Waste Water Treatment","size":1.0,"classification":"405104 - Chemical material metallurgical and environmental engineering"}],"classification":"405104 - Chemical material metallurgical and environmental engineering"},{"name":"406403 - Production of veterinary drugs","children":[{"name":"Production of Veterinary Drugs","size":1.0,"classification":"406403 - Production of veterinary drugs"},{"name":"Production of medical drugs (medicines)","size":1.0,"classification":"406403 - Production of veterinary drugs"}],"classification":"406403 - Production of veterinary drugs"},{"name":"403201 - Press and media","children":[{"name":"Correspondent Radio Station Editor","size":1.0,"classification":"403201 - Press and media"}],"classification":"403201 - Press and media"},{"name":"405101 - Technical architecture and construction works","children":[{"name":"Concrete","size":1.0,"classification":"405101 - Technical architecture and construction works"},{"name":"Formwork - Scaffolding","size":1.0,"classification":"405101 - Technical architecture and construction works"},{"name":"Reinforcement steel -Welding","size":1.0,"classification":"405101 - Technical architecture and construction works"},{"name":"Drainage (water supply)","size":1.0,"classification":"405101 - Technical architecture and construction works"},{"name":"Water supply","size":1.0,"classification":"405101 - Technical architecture and construction works"},{"name":"Masonry-Complete","size":1.0,"classification":"405101 - Technical architecture and construction works"},{"name":"Mining engineering","size":1.0,"classification":"405101 - Technical architecture and construction works"},{"name":"Road Bridge Construction","size":1.0,"classification":"405101 - Technical architecture and construction works"},{"name":"Installation of Bridges","size":1.0,"classification":"405101 - Technical architecture and construction works"},{"name":"Installation of Drilling Rig","size":1.0,"classification":"405101 - Technical architecture and construction works"},{"name":"Construction and Maintenance of Railway Traffic Works","size":1.0,"classification":"405101 - Technical architecture and construction works"},{"name":"Construction and improvement of irrigation works","size":1.0,"classification":"405101 - Technical architecture and construction works"},{"name":"Construction of water works","size":1.0,"classification":"405101 - Technical architecture and construction works"},{"name":"Repair and Maintenance of Airports","size":1.0,"classification":"405101 - Technical architecture and construction works"}],"classification":"405101 - Technical architecture and construction works"},{"name":"403404 - Governance - Management","children":[{"name":"Human Resources Management","size":1.0,"classification":"403404 - Governance - Management"},{"name":"Small and Medium Business Administration","size":1.0,"classification":"403404 - Governance - Management"},{"name":"Real Estate/Property Management","size":1.0,"classification":"403404 - Governance - Management"},{"name":"Urban Traffic Management","size":1.0,"classification":"403404 - Governance - Management"},{"name":"Management of exploitation of irrigation works (irrigation management)","size":1.0,"classification":"403404 - Governance - Management"},{"name":"Urban Management","size":1.0,"classification":"403404 - Governance - Management"},{"name":"Urban tree management","size":1.0,"classification":"403404 - Governance - Management"},{"name":"Waterway Management","size":1.0,"classification":"403404 - Governance - Management"},{"name":"Management of Marine Works","size":1.0,"classification":"403404 - Governance - Management"}],"classification":"403404 - Governance - Management"},{"name":"405403 - Producting and processing","children":[{"name":"Tea processing technology","size":1.0,"classification":"405403 - Producting and processing"},{"name":"Processing coffee/cocoa","size":1.0,"classification":"405403 - Producting and processing"},{"name":"Cigarette Processing","size":1.0,"classification":"405403 - Producting and processing"},{"name":"Cashew processing","size":1.0,"classification":"405403 - Producting and processing"},{"name":"Production of salt from sea water","size":1.0,"classification":"405403 - Producting and processing"},{"name":"Production of industrial salt","size":1.0,"classification":"405403 - Producting and processing"},{"name":"Technology of producing rubber products","size":1.0,"classification":"405403 - Producting and processing"},{"name":"Plastic manufacturing technology from polymers","size":1.0,"classification":"405403 - Producting and processing"},{"name":"Production Technology of Artificial Boards","size":1.0,"classification":"405403 - Producting and processing"},{"name":"Carpentry and interior decoration","size":1.0,"classification":"405403 - Producting and processing"},{"name":"Wood carpentry","size":1.0,"classification":"405403 - Producting and processing"},{"name":"Fine Arts","size":1.0,"classification":"405403 - Producting and processing"}],"size":1.0,"classification":"405403 - Producting and processing"},{"name":"405103 - Electrical engineering electronics and telecommunications","children":[{"name":"Electrical","size":1.0,"classification":"405103 - Electrical engineering electronics and telecommunications"},{"name":"Industrial electricity","size":1.0,"classification":"405103 - Electrical engineering electronics and telecommunications"},{"name":"Ship power (electric boat)","size":1.0,"classification":"405103 - Electrical engineering electronics and telecommunications"},{"name":"Electrical Locomotive Railway","size":1.0,"classification":"405103 - Electrical engineering electronics and telecommunications"},{"name":"Railway Carraiges","size":1.0,"classification":"405103 - Electrical engineering electronics and telecommunications"},{"name":"Electroplating machine (repair mine machine)","size":1.0,"classification":"405103 - Electrical engineering electronics and telecommunications"},{"name":"Repair Electrical Machines (equipment)","size":1.0,"classification":"405103 - Electrical engineering electronics and telecommunications"},{"name":"Repair and Installation of Electrical Equipment","size":1.0,"classification":"405103 - Electrical engineering electronics and telecommunications"},{"name":"Repair of Power Transmission Lines in Operation","size":1.0,"classification":"405103 - Electrical engineering electronics and telecommunications"},{"name":"Repair of automation equipment","size":1.0,"classification":"405103 - Electrical engineering electronics and telecommunications"},{"name":"Installation of electricity works","size":1.0,"classification":"405103 - Electrical engineering electronics and telecommunications"},{"name":"Installation of electrical equipment","size":1.0,"classification":"405103 - Electrical engineering electronics and telecommunications"},{"name":"Installation and repair of railway transmission system","size":1.0,"classification":"405103 - Electrical engineering electronics and telecommunications"},{"name":"To Manage Operation and Repair of Transmission Lines and Transformer Stations with a Voltage of 220KV or Higher","size":1.0,"classification":"405103 - Electrical engineering electronics and telecommunications"},{"name":"Installation of Transmission Lines and Substations of 110KV or Less","size":1.0,"classification":"405103 - Electrical engineering electronics and telecommunications"},{"name":"Electrical installation and conditioning control in industry","size":1.0,"classification":"405103 - Electrical engineering electronics and telecommunications"},{"name":"Electrical port technology","size":1.0,"classification":"405103 - Electrical engineering electronics and telecommunications"},{"name":"Boiler Technology","size":1.0,"classification":"405103 - Electrical engineering electronics and telecommunications"},{"name":"Turbine Technology","size":1.0,"classification":"405103 - Electrical engineering electronics and telecommunications"},{"name":"Water Turbine Engineering","size":1.0,"classification":"405103 - Electrical engineering electronics and telecommunications"},{"name":"Gas Turbine Engineering","size":1.0,"classification":"405103 - Electrical engineering electronics and telecommunications"},{"name":"Assemble and test boiler turbine","size":1.0,"classification":"405103 - Electrical engineering electronics and telecommunications"},{"name":"Operate Electricity in Powerhouse (power plant)","size":1.0,"classification":"405103 - Electrical engineering electronics and telecommunications"},{"name":"Hydropower plant operation","size":1.0,"classification":"405103 - Electrical engineering electronics and telecommunications"},{"name":"Operating a thermal power plant","size":1.0,"classification":"405103 - Electrical engineering electronics and telecommunications"},{"name":"Operation and repair of hydropower stations","size":1.0,"classification":"405103 - Electrical engineering electronics and telecommunications"},{"name":"Operation and repair of electric pump station","size":1.0,"classification":"405103 - Electrical engineering electronics and telecommunications"},{"name":"To Manage Operation and Repair of Transmission Lines and Transformer Stations with a Voltage of 110KV or Less","size":1.0,"classification":"405103 - Electrical engineering electronics and telecommunications"},{"name":"Operation of diesel generator sets","size":1.0,"classification":"405103 - Electrical engineering electronics and telecommunications"},{"name":"Electrical measurement","size":1.0,"classification":"405103 - Electrical engineering electronics and telecommunications"},{"name":"Electrical experiment (electrical testing)","size":1.0,"classification":"405103 - Electrical engineering electronics and telecommunications"},{"name":"Repair Time Meter","size":1.0,"classification":"405103 - Electrical engineering electronics and telecommunications"},{"name":"Repair electricity meter heat pressure","size":1.0,"classification":"405103 - Electrical engineering electronics and telecommunications"},{"name":"Repair weight measurement equipment","size":1.0,"classification":"405103 - Electrical engineering electronics and telecommunications"},{"name":"Operation and repair of refrigeration equipment","size":1.0,"classification":"405103 - Electrical engineering electronics and telecommunications"},{"name":"Air Conditioning","size":1.0,"classification":"405103 - Electrical engineering electronics and telecommunications"},{"name":"Aquatic refrigeration","size":1.0,"classification":"405103 - Electrical engineering electronics and telecommunications"},{"name":"Electro-mechanical mine technology","size":1.0,"classification":"405103 - Electrical engineering electronics and telecommunications"},{"name":"Rural electrification","size":1.0,"classification":"405103 - Electrical engineering electronics and telecommunications"},{"name":"Mechatronics","size":1.0,"classification":"405103 - Electrical engineering electronics and telecommunications"},{"name":"Consumer electronics","size":1.0,"classification":"405103 - Electrical engineering electronics and telecommunications"},{"name":"Industrial electronics","size":1.0,"classification":"405103 - Electrical engineering electronics and telecommunications"},{"name":"Aviation electronics","size":1.0,"classification":"405103 - Electrical engineering electronics and telecommunications"},{"name":"Electronic Engineering Aircraft","size":1.0,"classification":"405103 - Electrical engineering electronics and telecommunications"},{"name":"Electronic shipbuilding technology","size":1.0,"classification":"405103 - Electrical engineering electronics and telecommunications"},{"name":"Aviation Information Technology","size":1.0,"classification":"405103 - Electrical engineering electronics and telecommunications"},{"name":"Air Navigation Techniques","size":1.0,"classification":"405103 - Electrical engineering electronics and telecommunications"},{"name":"Electrical equipment and ship control","size":1.0,"classification":"405103 - Electrical engineering electronics and telecommunications"},{"name":"Radar equipment engineering","size":1.0,"classification":"405103 - Electrical engineering electronics and telecommunications"},{"name":"Power Source Information Technology","size":1.0,"classification":"405103 - Electrical engineering electronics and telecommunications"},{"name":"Peripheral Network Engineering and Terminals","size":1.0,"classification":"405103 - Electrical engineering electronics and telecommunications"},{"name":"Technical installation of telecommunications station","size":1.0,"classification":"405103 - Electrical engineering electronics and telecommunications"},{"name":"Cable Television Engineering","size":1.0,"classification":"405103 - Electrical engineering electronics and telecommunications"},{"name":"Optical and wireless transmission techniques","size":1.0,"classification":"405103 - Electrical engineering electronics and telecommunications"},{"name":"Medical imaging equipment","size":1.0,"classification":"405103 - Electrical engineering electronics and telecommunications"},{"name":"Medical electronics technician","size":1.0,"classification":"405103 - Electrical engineering electronics and telecommunications"},{"name":"Medical Equipment Testing","size":1.0,"classification":"405103 - Electrical engineering electronics and telecommunications"},{"name":"Medical equipment","size":1.0,"classification":"405103 - Electrical engineering electronics and telecommunications"},{"name":"Medical Equipment Production (pharmaceutical production equipment)","size":1.0,"classification":"405103 - Electrical engineering electronics and telecommunications"},{"name":"Exploitation of Airborne Ground-Based Radio Equipment","size":1.0,"classification":"405103 - Electrical engineering electronics and telecommunications"},{"name":"Installation operation and repair of pumps fans compressors","size":1.0,"classification":"405103 - Electrical engineering electronics and telecommunications"},{"name":"Electrical Engineering Aircraft","size":1.0,"classification":"405103 - Electrical engineering electronics and telecommunications"}],"classification":"405103 - Electrical engineering electronics and telecommunications"},{"name":"406106 - Industrial management","children":[{"name":"Test Food Quality (food quality assurance)","size":1.0,"classification":"406106 - Industrial management"},{"name":"Test sugarcane","size":1.0,"classification":"406106 - Industrial management"},{"name":"Testing of pulp and paper","size":1.0,"classification":"406106 - Industrial management"},{"name":"Analysis of cement mechanics","size":1.0,"classification":"406106 - Industrial management"},{"name":"Analysis of alumina and bauxite products","size":1.0,"classification":"406106 - Industrial management"},{"name":"Inspection and analysis of chemicals","size":1.0,"classification":"406106 - Industrial management"},{"name":"Inspection of coal quantity and quality","size":1.0,"classification":"406106 - Industrial management"},{"name":"Measurement of vibration and dynamic balance","size":1.0,"classification":"406106 - Industrial management"},{"name":"Inspection of structural steel and metal","size":1.0,"classification":"406106 - Industrial management"},{"name":"Measurement and analysis of metal components","size":1.0,"classification":"406106 - Industrial management"}],"size":1.0,"classification":"406106 - Industrial management"},{"name":"407601 - Community service","children":[{"name":"Community Service","size":1.0,"classification":"407601 - Community service"}],"classification":"407601 - Community service"},{"name":"403403 - Accounting and auditing","children":[{"name":"Corporate Accounting","size":1.0,"classification":"403403 - Accounting and auditing"},{"name":"Accounting labor salary and social insurance","size":1.0,"classification":"403403 - Accounting and auditing"},{"name":"Accounting Materials","size":1.0,"classification":"403403 - Accounting and auditing"},{"name":"Bank Accountant","size":1.0,"classification":"403403 - Accounting and auditing"}],"classification":"403403 - Accounting and auditing"},{"name":"403202 - Information - Library","children":[{"name":"Library","size":1.0,"classification":"403202 - Information - Library"}],"classification":"403202 - Information - Library"},{"name":"405108 - Print technology","children":[{"name":"Technology of Making Molds","size":1.0,"classification":"405108 - Print technology"},{"name":"Printing Technology","size":1.0,"classification":"405108 - Print technology"},{"name":"Technology to complete publications","size":1.0,"classification":"405108 - Print technology"},{"name":"Electronic Publishing Technology","size":1.0,"classification":"405108 - Print technology"}],"classification":"405108 - Print technology"},{"name":"407203 - Health services","children":[{"name":"Medical Examination Technician","size":1.0,"classification":"407203 - Health services"},{"name":"Physical Therapy rehabilitation","size":1.0,"classification":"407203 - Health services"}],"classification":"407203 - Health services"},{"name":"406402 - Veterinary services","children":[{"name":"Veterinary","size":1.0,"classification":"406402 - Veterinary services"}],"classification":"406402 - Veterinary services"},{"name":"404602 - Statistical","children":[{"name":"Business Statistics","size":1.0,"classification":"404602 - Statistical"},{"name":"Economic Information System","size":1.0,"classification":"404602 - Statistical"}],"classification":"404602 - Statistical"},{"name":"407202 - Traditional medicine","children":[{"name":"Traditional Medicine Nursing","size":1.0,"classification":"407202 - Traditional medicine"}],"classification":"407202 - Traditional medicine"},{"name":"408501 - Environmental control and protection","children":[{"name":"Urban Environmental Production","size":1.0,"classification":"408501 - Environmental control and protection"},{"name":"Protecting the Industrial Environment","size":1.0,"classification":"408501 - Environmental control and protection"},{"name":"Protect Marine Environment","size":1.0,"classification":"408501 - Environmental control and protection"},{"name":"Microbiology - Biochemistry","size":1.0,"classification":"408501 - Environmental control and protection"},{"name":"Oil Spill Disposal at Sea","size":1.0,"classification":"408501 - Environmental control and protection"},{"name":"Process Rubbish (Waste Treatment)","size":1.0,"classification":"408501 - Environmental control and protection"}],"classification":"408501 - Environmental control and protection"},{"name":"407204 - Pharmacy","children":[{"name":"Pharmaceutical Technology (technician)","size":1.0,"classification":"407204 - Pharmacy"},{"name":"Drug Testing Techniques","size":1.0,"classification":"407204 - Pharmacy"}],"classification":"407204 - Pharmacy"},{"name":"402103 - Visual Arts","children":[{"name":"Photo","size":1.0,"classification":"402103 - Visual Arts"},{"name":"Take a Photo","size":1.0,"classification":"402103 - Visual Arts"},{"name":"Recording Discs Tapes","size":1.0,"classification":"402103 - Visual Arts"},{"name":"Broadcasting Equipment (television)","size":1.0,"classification":"402103 - Visual Arts"},{"name":"Editing Audio-Visual Material","size":1.0,"classification":"402103 - Visual Arts"},{"name":"Production Techniques for Television Programs","size":1.0,"classification":"402103 - Visual Arts"}],"classification":"402103 - Visual Arts"},{"name":"403103 - Sociology and Anthropoloty","children":[{"name":"Peer education","size":1.0,"classification":"403103 - Sociology and Anthropoloty"}],"classification":"403103 - Sociology and Anthropoloty"},{"name":"403402 - Finance - Banking - Insurance","children":[{"name":"Business Finance","size":1.0,"classification":"403402 - Finance - Banking - Insurance"},{"name":"Social Insurance","size":1.0,"classification":"403402 - Finance - Banking - Insurance"},{"name":"Credit Financing","size":1.0,"classification":"403402 - Finance - Banking - Insurance"}],"classification":"403402 - Finance - Banking - Insurance"},{"name":"4505102 - Mechanical engineering technology","children":[{"name":"Repair of mine equipment","size":1.0,"classification":"4505102 - Mechanical engineering technology"},{"name":"Operation of construction machines","size":1.0,"classification":"4505102 - Mechanical engineering technology"}],"classification":"4505102 - Mechanical engineering technology"},{"name":"409001 - Dive","children":[{"name":"Scuba Diving","size":1.0,"classification":"409001 - Dive"},{"name":"Dive Survey Research","size":1.0,"classification":"409001 - Dive"},{"name":"Diving Guides Sightseeing","size":1.0,"classification":"409001 - Dive"},{"name":"Diving Construction","size":1.0,"classification":"409001 - Dive"}],"classification":"409001 - Dive"},{"name":"408601 - Security and social order","children":[{"name":"Aviation Survey Check","size":1.0,"classification":"408601 - Security and social order"},{"name":"Airline Security Screening","size":1.0,"classification":"408601 - Security and social order"},{"name":"Hotel Security","size":1.0,"classification":"408601 - Security and social order"},{"name":"Transport Security","size":1.0,"classification":"408601 - Security and social order"}],"classification":"408601 - Security and social order"},{"name":"405102 - Mechanical engineering technology","children":[{"name":"CNC Metal cutting","size":1.0,"classification":"405102 - Mechanical engineering technology"},{"name":"Hill (Go)","size":1.0,"classification":"405102 - Mechanical engineering technology"},{"name":"Solder","size":1.0,"classification":"405102 - Mechanical engineering technology"},{"name":"Forging stamping","size":1.0,"classification":"405102 - Mechanical engineering technology"},{"name":"Production","size":1.0,"classification":"405102 - Mechanical engineering technology"},{"name":"Cooling Machine Tools","size":1.0,"classification":"405102 - Mechanical engineering technology"},{"name":"Compact Mechanical Assembly","size":1.0,"classification":"405102 - Mechanical engineering technology"},{"name":"Fabrication of mechanical equipment","size":1.0,"classification":"405102 - Mechanical engineering technology"},{"name":"Installation of Mechanical Equipment","size":1.0,"classification":"405102 - Mechanical engineering technology"},{"name":"Automobile Assembly","size":1.0,"classification":"405102 - Mechanical engineering technology"},{"name":"Agricultural Machinery Engineering","size":1.0,"classification":"405102 - Mechanical engineering technology"},{"name":"Technical pipe fitting technology","size":1.0,"classification":"405102 - Mechanical engineering technology"},{"name":"Pipe Processing Technology","size":1.0,"classification":"405102 - Mechanical engineering technology"},{"name":"Fabrication and erection of steel structures","size":1.0,"classification":"405102 - Mechanical engineering technology"},{"name":"Machining and Ship Launching","size":1.0,"classification":"405102 - Mechanical engineering technology"},{"name":"Fabrication and Assembly of Ship\u0027s Pipe System","size":1.0,"classification":"405102 - Mechanical engineering technology"},{"name":"Fabrication and assembly of ship interior systems","size":1.0,"classification":"405102 - Mechanical engineering technology"},{"name":"Assembling Marine Propulsion Systems","size":1.0,"classification":"405102 - Mechanical engineering technology"},{"name":"Manufacturing Technology Car Maintenance","size":1.0,"classification":"405102 - Mechanical engineering technology"},{"name":"Manufacturing Technology Maintenance of Locomotives","size":1.0,"classification":"405102 - Mechanical engineering technology"},{"name":"Car technology","size":1.0,"classification":"405102 - Mechanical engineering technology"},{"name":"Repair and Assembly of Motorcycles","size":1.0,"classification":"405102 - Mechanical engineering technology"},{"name":"Repairing Operating the Hoe","size":1.0,"classification":"405102 - Mechanical engineering technology"},{"name":"Ship repair (repair ship engine)","size":1.0,"classification":"405102 - Mechanical engineering technology"},{"name":"Repair of Textile Equipment","size":1.0,"classification":"405102 - Mechanical engineering technology"},{"name":"Repair of sewing equipment","size":1.0,"classification":"405102 - Mechanical engineering technology"},{"name":"Repairing Woodworking Equipment","size":1.0,"classification":"405102 - Mechanical engineering technology"},{"name":"Repair Sugar Processing Equipment","size":1.0,"classification":"405102 - Mechanical engineering technology"},{"name":"Repairing Food Processing Equipment","size":1.0,"classification":"405102 - Mechanical engineering technology"},{"name":"Mechanical Repair of Paper Industry","size":1.0,"classification":"405102 - Mechanical engineering technology"},{"name":"Repair of Printing Equipment","size":1.0,"classification":"405102 - Mechanical engineering technology"},{"name":"Repair of Chemical Equipmenet","size":1.0,"classification":"405102 - Mechanical engineering technology"},{"name":"Repair Metallurgy Equipment","size":1.0,"classification":"405102 - Mechanical engineering technology"},{"name":"Repair of Oil Drilling Equipment","size":1.0,"classification":"405102 - Mechanical engineering technology"},{"name":"Repair oil processing equipment","size":1.0,"classification":"405102 - Mechanical engineering technology"},{"name":"Repair of Lifting Machine","size":1.0,"classification":"405102 - Mechanical engineering technology"},{"name":"Repair of construction machines","size":1.0,"classification":"405102 - Mechanical engineering technology"},{"name":"Repair installation of cement mechanical equipmenet","size":1.0,"classification":"405102 - Mechanical engineering technology"},{"name":"Maintenance of Electromechanical Equipment","size":1.0,"classification":"405102 - Mechanical engineering technology"},{"name":"Mechanical System Maintenance","size":1.0,"classification":"405102 - Mechanical engineering technology"},{"name":"Maintaining the Port Facility System (airport equipment system)","size":1.0,"classification":"405102 - Mechanical engineering technology"},{"name":"Maintenance of Industrial Equipment Systems","size":1.0,"classification":"405102 - Mechanical engineering technology"},{"name":"Mechanical Maintenance of Aircraft","size":1.0,"classification":"405102 - Mechanical engineering technology"},{"name":"Operate the crane","size":1.0,"classification":"405102 - Mechanical engineering technology"},{"name":"Operating the road surface machine (pavement)","size":1.0,"classification":"405102 - Mechanical engineering technology"},{"name":"Operation of Pile Driving and Pile Drilling","size":1.0,"classification":"405102 - Mechanical engineering technology"},{"name":"Operation of agricultural machinery","size":1.0,"classification":"405102 - Mechanical engineering technology"},{"name":"Operating and repairing railway construction machines","size":1.0,"classification":"405102 - Mechanical engineering technology"},{"name":"Operating Machinery and Chemical Equipment","size":1.0,"classification":"405102 - Mechanical engineering technology"},{"name":"Control the Hoe","size":1.0,"classification":"405102 - Mechanical engineering technology"},{"name":"General Mechanical Unloading","size":1.0,"classification":"405102 - Mechanical engineering technology"},{"name":"Installation of Refrigeration Equipment","size":1.0,"classification":"405102 - Mechanical engineering technology"},{"name":"Ship building technology","size":1.0,"classification":"405102 - Mechanical engineering technology"}],"classification":"405102 - Mechanical engineering technology"},{"name":"408102 - Hotels restaurants","children":[{"name":"Business Reception (Receptionist)","size":1.0,"classification":"408102 - Hotels restaurants"},{"name":"Accomodation (business stay)","size":1.0,"classification":"408102 - Hotels restaurants"},{"name":"Restaurant Operation/Management","size":1.0,"classification":"408102 - Hotels restaurants"},{"name":"Cooking Techniques","size":1.0,"classification":"408102 - Hotels restaurants"},{"name":"Techniques for Making Drinks (beverage technique)","size":1.0,"classification":"408102 - Hotels restaurants"},{"name":"Baking Techniques","size":1.0,"classification":"408102 - Hotels restaurants"},{"name":"Hotel Management","size":1.0,"classification":"408102 - Hotels restaurants"},{"name":"Resort Management","size":1.0,"classification":"408102 - Hotels restaurants"}],"classification":"408102 - Hotels restaurants"},{"name":"405105 - Production technology","children":[{"name":"Production of welding materials","size":1.0,"classification":"405105 - Production technology"},{"name":"Production of industrial explosive materials","size":1.0,"classification":"405105 - Production technology"},{"name":"Production of inorganic substances","size":1.0,"classification":"405105 - Production technology"},{"name":"Produce laundry products","size":1.0,"classification":"405105 - Production technology"},{"name":"Fertilizer production","size":1.0,"classification":"405105 - Production technology"},{"name":"Producing plant protection drugs (pesticides)","size":1.0,"classification":"405105 - Production technology"},{"name":"Paint production","size":1.0,"classification":"405105 - Production technology"},{"name":"Production of cement","size":1.0,"classification":"405105 - Production technology"},{"name":"Production of Cement Packaging","size":1.0,"classification":"405105 - Production technology"},{"name":"Manufacture ceramic tiles","size":1.0,"classification":"405105 - Production technology"},{"name":"Production of granite tiles","size":1.0,"classification":"405105 - Production technology"},{"name":"Production of stone","size":1.0,"classification":"405105 - Production technology"},{"name":"Manufacture Refractory Materials","size":1.0,"classification":"405105 - Production technology"},{"name":"Production of auxiliary materials used in shipbuilding","size":1.0,"classification":"405105 - Production technology"},{"name":"Produce asphalt concrete","size":1.0,"classification":"405105 - Production technology"},{"name":"Production of Ceramic and Porcelain Construction","size":1.0,"classification":"405105 - Production technology"},{"name":"Production of civil ceramic products","size":1.0,"classification":"405105 - Production technology"},{"name":"Production of glass","size":1.0,"classification":"405105 - Production technology"},{"name":"Production of batteries and accumulators","size":1.0,"classification":"405105 - Production technology"},{"name":"Production of electric appliances","size":1.0,"classification":"405105 - Production technology"},{"name":"Manufacturing Insulated Products","size":1.0,"classification":"405105 - Production technology"},{"name":"Production of electrical measuring instruments","size":1.0,"classification":"405105 - Production technology"},{"name":"Production of Electric Motors","size":1.0,"classification":"405105 - Production technology"},{"name":"Production of power cables and connectors","size":1.0,"classification":"405105 - Production technology"},{"name":"Production of orthopedic instruments","size":1.0,"classification":"405105 - Production technology"},{"name":"Production of rehabilitation equipment","size":1.0,"classification":"405105 - Production technology"},{"name":"Production of sports equipment","size":1.0,"classification":"405105 - Production technology"},{"name":"Technology of pulp and paper production","size":1.0,"classification":"405105 - Production technology"},{"name":"Processing latex","size":1.0,"classification":"405105 - Production technology"}],"classification":"405105 - Production technology"},{"name":"402101 - Art","children":[{"name":"Wood sculpture","size":1.0,"classification":"402101 - Art"}],"classification":"402101 - Art"},{"name":"404801 - Computer","children":[{"name":"Repairing Assembling Computers","size":1.0,"classification":"404801 - Computer"},{"name":"Electronic circuit design on the computer","size":1.0,"classification":"404801 - Computer"}],"classification":"404801 - Computer"},{"name":"Testing and quality testing of road bridges\"","size":1.0,"classification":"Testing and quality testing of road bridges\""},{"name":"405401 - Processing food food and beverages","children":[{"name":"Processing vegetable oil","size":1.0,"classification":"405401 - Processing food food and beverages"},{"name":"Processing and Preserving Aquatic Products (seafood)","size":1.0,"classification":"405401 - Processing food food and beverages"},{"name":"Milk Processing","size":1.0,"classification":"405401 - Processing food food and beverages"},{"name":"Production of sweetners spices","size":1.0,"classification":"405401 - Processing food food and beverages"},{"name":"Processing Vegetables and Fruits","size":1.0,"classification":"405401 - Processing food food and beverages"},{"name":"Production of cake candy","size":1.0,"classification":"405401 - Processing food food and beverages"},{"name":"Liquor (beer) production","size":1.0,"classification":"405401 - Processing food food and beverages"},{"name":"Beverage Production (soft drinks)","size":1.0,"classification":"405401 - Processing food food and beverages"},{"name":"Alcohol Production","size":1.0,"classification":"405401 - Processing food food and beverages"},{"name":"Producing Glucose","size":1.0,"classification":"405401 - Processing food food and beverages"},{"name":"Sugarcane Production","size":1.0,"classification":"405401 - Processing food food and beverages"},{"name":"Processing concentrated fruit juice","size":1.0,"classification":"405401 - Processing food food and beverages"},{"name":"Food Processing","size":1.0,"classification":"405401 - Processing food food and beverages"}],"classification":"405401 - Processing food food and beverages"},{"name":"407205 - Nursing care","children":[{"name":"Nursing","size":1.0,"classification":"407205 - Nursing care"},{"name":"Midwife","size":1.0,"classification":"407205 - Nursing care"}],"classification":"407205 - Nursing care"}]};   
+
+    var ThingManager = (function(){
+        let itBe = 5;
+        let legend = null;
+        return {
+            setLegend: function(l){
+                legend = l;
+            },
+            getLegend: function(){
+                return legend;
+            }
+
+        }
+    })();
+
+    // Variables
+    var width = 700;
+    var height = 700;
+    var radius = Math.min(width, height) / 2;
+    var color = d3.scaleOrdinal(d3.schemeCategory20);
+
+    console.log(color)
+    
+    
+    // Create primary <g> element
+    var g = d3.select('svg')
+        .attr('width', width)
+        .attr('height', height)
+        .append('g')
+        .attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')');
+
+    // Data strucure
+    var partition = d3.partition()
+        .size([2 * Math.PI, radius]);
+
+    // Find data root
+    var root = d3.hierarchy(nodeData)
+    .sum(function(d) { return d.size; })
+    .sort(function(a, b) { return b.value - a.value; });
+    
+
+    // Size arcs
+    partition(root);
+    var arc = d3.arc()
+            .startAngle(function (d) { return d.x0 })
+            .endAngle(function (d) { return d.x1 })
+            .innerRadius(function (d) { return d.y0 })
+            .outerRadius(function (d) { return d.y1 });
+
+    drawLegend(root.children, color);
+    
+    // Add a <g> element for each node in thd data, then append <path> elements and draw lines based on the arc
+    // variable calculations. Last, color the lines and the slices.
+    g.selectAll('g')
+        .data(root.descendants())
+        .enter().append('g').attr("class", "node").append('path')
+        .attr("display", function (d) { return d.depth ? null : "none"; })
+        .attr("d", arc)
+        .style('stroke', '#fff')
+        .style("fill", function (d) { return color((d.children ? d : d.parent).data.name); });
+
+    // Populate the <text> elements with our data-driven titles.
+    // g.selectAll(".node")
+    //     .append("text")
+    //     .attr("transform", function(d) {
+    //         return "translate(" + arc.centroid(d) + ")rotate(" + computeTextRotation(d) + ")"; })
+    //     .attr("dx", "-20") // radius margin
+    //     .attr("dy", ".5em") // rotation align
+    //     .text(function(d) { return d.depth==1 ? d.data.name : "" });
+    
+    d3.select("#nValue").on("input", function() {
+        d3.selectAll("path").style("opacity", 0.1);
+            let jones  = this.value.trim().toLowerCase();
+            d3.selectAll("path").filter(function(node){
+                
+                let test = (node.data.name.toLowerCase().indexOf(jones) >= 0)
+                return test;
+
+            }).style("opacity",1);
+
+            let l = ThingManager.getLegend();
+            l.selectAll("rect").style("opacity",0.1).filter(function(node){
+                let test = (node.data.name.toLowerCase().indexOf(jones) >= 0)
+                return test;
+            }).style("opacity",1)
+    });
+
+
+    g.selectAll(".node")
+    .on("mouseover", function mouseOver(d){
+            // console.log(d.children.length)
+            d3.select("#title").text(d.data.name + " " + (d.children ? d.children.length : "") ).style("color",color((d.children ? d : d.parent).data.name));
+            let l = ThingManager.getLegend()
+            let parents = d.ancestors()
+            
+            l.selectAll("rect").style("opacity",0.1).filter(function(node){
+                return (parents.indexOf(node) !== -1)
+            }).style("opacity",1)
+
+            d3.selectAll("path").style("opacity", 0.1);
+            let children = d.descendants();
+            d3.selectAll("path").filter(function(node){
+                return (children.indexOf(node) !== -1)
+            }).style("opacity",1);
+
+        })
+        .on("mouseleave", function mouseLeave(d){
+            let myLegend = ThingManager.getLegend()
+            myLegend.selectAll("rect").style("opacity",1);
+            d3.selectAll("path").style("opacity", 1);
+            d3.select("#title").text('');
+        });
+
+    /**
+     * Calculate the correct distance to rotate each label based on its location in the sunburst.
+     * @param {Node} d
+     * @return {Number}
+     */
+     function computeTextRotation(d) {
+        var angle = (d.x0 + d.x1) / Math.PI * 90;
+
+        // Avoid upside-down labels
+        return (angle < 120 || angle > 270) ? angle : angle + 180;  // labels as rims
+        //return (angle < 180) ? angle - 90 : angle + 90;  // labels as spokes
+    }
+
+
+    // function mouseOver(d){
+    //     console.log("over it")
+    //     d3.select("#title").text("jones");
+    // }
+
+    function drawLegend(dataSet, color) {
+
+        // Dimensions of legend item: width, height, spacing, radius of rounded rect.
+        var li = {
+            w: 275, h: 15, s: 3, r: 3
+        };
+
+        var legend = d3.select("#legend").append("svg:svg")
+            .attr("width", li.w)
+            .attr("height", dataSet.length * (li.h + li.s));
+        ThingManager.setLegend(legend);
+
+        var g = legend.selectAll("g")
+            .data(dataSet)
+            .enter().append("svg:g")
+            .attr("transform", function(d, i) {
+                console.log(d.data.name)
+                return "translate(0," + i * (li.h + li.s) + ")";
+                });
+
+        g.append("svg:rect")
+            .attr("rx", li.r)
+            .attr("ry", li.r)
+            .attr("width", li.w)
+            .attr("height", li.h)
+            
+            .on("mouseleave", function mouseLeave(d){
+                d3.selectAll("path").style("opacity", 1);
+                let l = ThingManager.getLegend();            
+                l.selectAll("rect").style("opacity",1);
+                d3.select("#title").text('');
+            })
+            .style("fill", function(d) { 
+                return color((d.children ? d : d.parent).data.name); })
+
+        g.append("svg:text")
+            .attr("x", li.w / 2)
+            .attr("y", li.h / 2)
+            .attr("dy", "0.25em")
+            .attr("text-anchor", "middle")
+            // .style("font-family", "'Comfortaa', cursive")
+            .style("font-size", "0.5em")
+            
+            .text(function(d) { return d.data.name; });
+
+        g.on("mouseover", function mouseOver(d){
+            console.log(d.data.name)
+            d3.select("#title").text(d.data.name + " " + (d.children ? d.children.length : "") ).style("color",color((d.children ? d : d.parent).data.name));
+            
+            let children = d.descendants();
+            d3.selectAll("path").style("opacity", 0.1).filter(function(node){
+                return (children.indexOf(node) !== -1)
+            }).style("opacity",1);
+
+            let parents = d.ancestors();
+            let l = ThingManager.getLegend();            
+            l.selectAll("rect").style("opacity",0.1).filter(function(node){
+                return (parents.indexOf(node) !== -1)
+            }).style("opacity",1)
+            
+            }
+        )
+}
+
+</script>
